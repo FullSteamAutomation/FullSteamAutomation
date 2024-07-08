@@ -17,10 +17,10 @@ jobs:
       run: |
         git config --global user.name "github-actions[bot]"
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
-        git clone --no-checkout https://$(AZURE_DEVOPS_PAT):x-oauth-basic@dev.azure.com/$(AZURE_DEVOPS_ORGANIZATION)/$(AZURE_DEVOPS_PROJECT)/_git/$(AZURE_DEVOPS_REPOSITORY) azure-devops-repo
+        git clone --no-checkout https://$AZURE_DEVOPS_PAT:x-oauth-basic@dev.azure.com/$AZURE_DEVOPS_ORGANIZATION/$AZURE_DEVOPS_PROJECT/_git/$AZURE_DEVOPS_REPOSITORY azure-devops-repo
         cd azure-devops-repo
         git config core.sparseCheckout true
-        echo "$(AZURE_DEVOPS_DIRECTORY)/" >> .git/info/sparse-checkout
+        echo "$AZURE_DEVOPS_DIRECTORY/" >> .git/info/sparse-checkout
         git checkout jmob/playwrightTest  # Checks out the feature branch
 
       env:
