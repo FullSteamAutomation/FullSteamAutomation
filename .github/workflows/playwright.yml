@@ -1,0 +1,27 @@
+name: Playwright Tests
+on:
+  workflow_dispatch:  # Allows manual triggering
+  schedule:
+    # Runs every day at 8 PM Eastern Time
+    - cron: '0 0 * * *'  # This cron expression runs at 12 AM UTC (which is 8 PM Eastern Time)
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout GitHub repository
+      uses: actions/checkout@v2
+
+    - name: Set up Git for sparse checkout
+      run: |
+        git config --global user.name "github-actions[bot]"
+        git config --global user.email "github-actions[bot]@users.noreply.github.com"
+        git clone --no-checkout https://$(AZURE_DEVOPS_PAT):x-oauth-basic@dev.azure.com/{organization}/{project}/_git/{repository} azure-devops-repo
+        cd azure-devops-repo
+        git config core.sparseCheckout true
+        echo "{directory}/" >> .git/info/sparse-checkout
+        git checkout ${{ github.ref_name }}  # Checks out the feature branch
+
+      env:
+        AZURE_DEVOPS_PAT: ${{ secrets.AZURE_DEVOPS_PAT }}
