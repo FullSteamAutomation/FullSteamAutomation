@@ -7,7 +7,7 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04  # Use Ubuntu 20.04 for Playwright support
 
     steps:
     - name: Checkout GitHub repository
@@ -33,7 +33,7 @@ jobs:
     - name: Set up Node.js
       uses: actions/setup-node@v2
       with:
-        node-version: '20'
+        node-version: '20.x'
 
     - name: Install dependencies
       run: |
