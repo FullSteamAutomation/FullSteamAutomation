@@ -6,7 +6,7 @@ on:
     - cron: '0 0 * * *'  # This cron expression runs at 12 AM UTC (which is 8 PM Eastern Time)
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
 
     steps:
@@ -29,3 +29,26 @@ jobs:
         AZURE_DEVOPS_PROJECT: ${{ secrets.AZURE_DEVOPS_PROJECT }}
         AZURE_DEVOPS_REPOSITORY: ${{ secrets.AZURE_DEVOPS_REPOSITORY }}
         AZURE_DEVOPS_DIRECTORY: ${{ secrets.AZURE_DEVOPS_DIRECTORY }}
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+
+    - name: Install dependencies
+      run: |
+        cd azure-devops-repo/$AZURE_DEVOPS_DIRECTORY
+        npm install
+
+    - name: Run Playwright tests
+      run: |
+        cd azure-devops-repo/$AZURE_DEVOPS_DIRECTORY
+        npx playwright install-deps
+        npx playwright test
+
+    - name: Archive Playwright test results
+      if: always()
+      uses: actions/upload-artifact@v2
+      with:
+        name: playwright-test-results
+        path: azure-devops-repo/$AZURE_DEVOPS_DIRECTORY/playwright-report
