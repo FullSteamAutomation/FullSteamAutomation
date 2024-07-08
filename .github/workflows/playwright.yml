@@ -43,6 +43,7 @@ jobs:
         echo "Directory contents:"
         npm install
         npx playwright install  # Installs Playwright and necessary browsers
+        sudo npx playwright install-deps
 
       env:
         AZURE_DEVOPS_DIRECTORY: ${{ secrets.AZURE_DEVOPS_DIRECTORY }}
