@@ -7,7 +7,7 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest  # Change runs-on to use Windows runner
 
     steps:
     - name: Checkout GitHub repository
