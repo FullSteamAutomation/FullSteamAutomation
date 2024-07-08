@@ -38,11 +38,13 @@ jobs:
     - name: Install dependencies
       run: |
         cd azure-devops-repo/$AZURE_DEVOPS_DIRECTORY
+        ls -la  # List the files in the current directory
         npm install
 
     - name: Run Playwright tests
       run: |
         cd azure-devops-repo/$AZURE_DEVOPS_DIRECTORY
+        ls -la  # List the files in the current directory
         npx playwright install-deps
         npx playwright test
 
