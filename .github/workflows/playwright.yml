@@ -53,22 +53,23 @@ jobs:
         echo "Directory contents:"
         npx playwright test
 
-    - name: Verify directory for reports
+    - name: Save current directory path
+      id: save-path
       run: |
         cd azure-devops-repo/$AZURE_DEVOPS_DIRECTORY/playwright-report
-        pwd  # Print current directory
+        echo "::set-output name=path::$(pwd)"
         ls   # List directory contents
 
     - name: Upload Playwright HTML report
       uses: actions/upload-artifact@v3
       with:
         name: playwright-html-report
-        path: azure-devops-repo/$AZURE_DEVOPS_DIRECTORY/playwright-report/index.html
+        path: ${{ steps.save-path.outputs.path }}/playwright-report/index.html
 
     - name: Upload Playwright trace on failure
       if: failure() # Only run this step if the previous step fails
       uses: actions/upload-artifact@v3
       with:
         name: playwright-trace
-        path: azure-devops-repo/$AZURE_DEVOPS_DIRECTORY/playwright-report/trace.zip
+        path: ${{ steps.save-path.outputs.path }}/playwright-report/trace.zip
 
