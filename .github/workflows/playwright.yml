@@ -19,10 +19,6 @@ jobs:
     steps:
       - name: Set up Git and clone Azure DevOps repository
         run: |
-          echo "Current directory:"
-          pwd  # Print the current directory
-          ls -R  # List all contents of the repository to verify
-
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git clone --no-checkout https://$AZURE_DEVOPS_PAT:x-oauth-basic@dev.azure.com/$AZURE_DEVOPS_ORGANIZATION/$AZURE_DEVOPS_PROJECT/_git/$AZURE_DEVOPS_REPOSITORY
@@ -42,7 +38,7 @@ jobs:
           echo "Current directory:"
           pwd  # Print the current directory
           ls -R  # List all contents of the repository to verify
-          cd $GITHUB_WORKSPACE
+          cd /Fullsteam.Payments.QA/Fullsteam.Payments.UITests.Playwright/PartnerTrack
           pwd  # Print the current directory
           ls -R  # List all contents of the repository to verify
 
