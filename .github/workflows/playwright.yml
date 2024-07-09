@@ -11,7 +11,7 @@ jobs:
 
     steps:
     - name: Checkout GitHub repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
     - name: Set up Git for sparse checkout
       run: |
@@ -31,7 +31,7 @@ jobs:
         AZURE_DEVOPS_DIRECTORY: ${{ secrets.AZURE_DEVOPS_DIRECTORY }}
 
     - name: Set up Node.js
-      uses: actions/setup-node@v2
+      uses: actions/setup-node@v3
       with:
         node-version: '20.x'
 
@@ -59,10 +59,16 @@ jobs:
       env:
         AZURE_DEVOPS_DIRECTORY: ${{ secrets.AZURE_DEVOPS_DIRECTORY }}
 
-
-    - name: Archive Playwright test results
-      if: always()
-      uses: actions/upload-artifact@v2
+    - name: Upload Playwright HTML report
+      uses: actions/upload-artifact@v3
       with:
-        name: playwright-test-results
+        name: playwright-html-report
         path: azure-devops-repo/$AZURE_DEVOPS_DIRECTORY/playwright-report
+
+    - name: Upload Playwright trace on failure
+      if: failure() # Only run this step if the previous step fails
+      uses: actions/upload-artifact@v3
+      with:
+        name: playwright-trace
+        path: azure-devops-repo/$AZURE_DEVOPS_DIRECTORY/playwright-report/trace.zip
+
