@@ -9,6 +9,13 @@ jobs:
   test:
     runs-on: ubuntu-20.04  # Use Ubuntu 20.04 for Playwright support
 
+    env:
+      AZURE_DEVOPS_PAT: ${{ secrets.AZURE_DEVOPS_PAT }}
+      AZURE_DEVOPS_ORGANIZATION: ${{ secrets.AZURE_DEVOPS_ORGANIZATION }}
+      AZURE_DEVOPS_PROJECT: ${{ secrets.AZURE_DEVOPS_PROJECT }}
+      AZURE_DEVOPS_REPOSITORY: ${{ secrets.AZURE_DEVOPS_REPOSITORY }}
+      AZURE_DEVOPS_DIRECTORY: ${{ secrets.AZURE_DEVOPS_DIRECTORY }}
+
     steps:
     - name: Checkout GitHub repository
       uses: actions/checkout@v3
@@ -22,13 +29,6 @@ jobs:
         git config core.sparseCheckout true
         echo "$AZURE_DEVOPS_DIRECTORY/" >> .git/info/sparse-checkout
         git checkout jmob/playwrightTest  # Checks out the feature branch
-
-      env:
-        AZURE_DEVOPS_PAT: ${{ secrets.AZURE_DEVOPS_PAT }}
-        AZURE_DEVOPS_ORGANIZATION: ${{ secrets.AZURE_DEVOPS_ORGANIZATION }}
-        AZURE_DEVOPS_PROJECT: ${{ secrets.AZURE_DEVOPS_PROJECT }}
-        AZURE_DEVOPS_REPOSITORY: ${{ secrets.AZURE_DEVOPS_REPOSITORY }}
-        AZURE_DEVOPS_DIRECTORY: ${{ secrets.AZURE_DEVOPS_DIRECTORY }}
 
     - name: Set up Node.js
       uses: actions/setup-node@v3
@@ -45,9 +45,6 @@ jobs:
         npx playwright install  # Installs Playwright and necessary browsers
         sudo npx playwright install-deps
 
-      env:
-        AZURE_DEVOPS_DIRECTORY: ${{ secrets.AZURE_DEVOPS_DIRECTORY }}
-
     - name: Run Playwright tests
       run: |
         cd azure-devops-repo/$AZURE_DEVOPS_DIRECTORY
@@ -55,9 +52,6 @@ jobs:
         pwd  # Print the current directory
         echo "Directory contents:"
         npx playwright test
-
-      env:
-        AZURE_DEVOPS_DIRECTORY: ${{ secrets.AZURE_DEVOPS_DIRECTORY }}
 
     - name: Upload Playwright HTML report
       uses: actions/upload-artifact@v3
