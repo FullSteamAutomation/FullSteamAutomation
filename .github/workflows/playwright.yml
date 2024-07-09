@@ -22,11 +22,6 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git clone --no-checkout https://$AZURE_DEVOPS_PAT:x-oauth-basic@dev.azure.com/fullsteamllc/Washington/_git/Washington
-          
-          echo "Current directory:"
-          pwd  # Print the current directory
-          ls -R  # List all contents of the repository to verify
-
           cd Washington          
           git config core.sparseCheckout true
           echo "/Fullsteam.Payments.QA/Fullsteam.Payments.UITests.Playwright/PartnerTrack" >> .git/info/sparse-checkout
@@ -34,11 +29,11 @@ jobs:
           
       - name: List directory contents
         run: |
-          cd Washington
           echo "Current directory:"
           pwd  # Print the current directory
           ls -R  # List all contents of the repository to verify
-          cd Fullsteam.Payments.QA/Fullsteam.Payments.UITests.Playwright/PartnerTrack
+          cp Fullsteam.Payments.QA/Fullsteam.Payments.UITests.Playwright/PartnerTrack $GITHUB_WORKSPACE/PartnerTrack
+          cd $GITHUB_WORKSPACE
           pwd  # Print the current directory
           ls -R  # List all contents of the repository to verify
 
