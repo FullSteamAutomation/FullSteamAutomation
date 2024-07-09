@@ -57,7 +57,7 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: playwright-html-report
-        path: azure-devops-repo/$AZURE_DEVOPS_DIRECTORY/playwright-report
+        path: azure-devops-repo/$AZURE_DEVOPS_DIRECTORY/playwright-report/index.html
 
     - name: Upload Playwright trace on failure
       if: failure() # Only run this step if the previous step fails
