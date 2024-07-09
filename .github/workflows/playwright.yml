@@ -56,20 +56,19 @@ jobs:
     - name: Save html file to repo root
       run: |
         cd azure-devops-repo/$AZURE_DEVOPS_DIRECTORY/playwright-report
-        $(pwd)
-        ls   # List directory contents       
+        ls       
         cp index.html $GITHUB_WORKSPACE/index.html  # Copy index.html to the root of GitHub workspace
 
-    # - name: Download html report artifact
-    #   uses: actions/download-artifact@v4.1.8
-    #   with:
-    #     pattern: '**/index.html'
+    - name: Download html report artifact
+      uses: actions/download-artifact@v4.1.8
+      with:
+        pattern: 'azure-devops-repo/Fullsteam.Payments.QA/Fullsteam.Payments.UITests.Playwright/PartnerTrack/index.html'
 
-    # - name: Upload Playwright HTML report
-    #   uses: actions/upload-artifact@v3
-    #   with:
-    #     name: playwright-html-report
-    #     path: ${{ steps.save-path.outputs.path }}/playwright-report/index.html
+    - name: Upload Playwright HTML report
+      uses: actions/upload-artifact@v3
+      with:
+        name: playwright-html-report
+        path: azure-devops-repo/Fullsteam.Payments.QA/Fullsteam.Payments.UITests.Playwright/PartnerTrack/index.html
 
     # - name: Upload Playwright trace on failure
     #   if: failure() # Only run this step if the previous step fails
