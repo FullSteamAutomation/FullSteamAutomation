@@ -62,13 +62,13 @@ jobs:
     - name: Download html report artifact
       uses: actions/download-artifact@v4.1.8
       with:
-        pattern: 'azure-devops-repo/Fullsteam.Payments.QA/Fullsteam.Payments.UITests.Playwright/PartnerTrack/index.html'
+        pattern: '$GITHUB_WORKSPACE/*.html'
 
     - name: Upload Playwright HTML report
       uses: actions/upload-artifact@v3
       with:
         name: playwright-html-report
-        path: azure-devops-repo/Fullsteam.Payments.QA/Fullsteam.Payments.UITests.Playwright/PartnerTrack/index.html
+        path: $GITHUB_WORKSPACE/index.html
 
     # - name: Upload Playwright trace on failure
     #   if: failure() # Only run this step if the previous step fails
