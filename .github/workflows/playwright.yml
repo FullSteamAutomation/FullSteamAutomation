@@ -21,20 +21,20 @@ jobs:
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git clone --no-checkout https://$AZURE_DEVOPS_PAT:x-oauth-basic@dev.azure.com/$AZURE_DEVOPS_ORGANIZATION/$AZURE_DEVOPS_PROJECT/_git/$AZURE_DEVOPS_REPOSITORY
+          git clone --no-checkout https://$AZURE_DEVOPS_PAT:x-oauth-basic@dev.azure.com/fullsteamllc/Washington/_git/Washington
           
           echo "Current directory:"
           pwd  # Print the current directory
           ls -R  # List all contents of the repository to verify
 
-          cd $AZURE_DEVOPS_REPOSITORY          
+          cd Washington          
           git config core.sparseCheckout true
-          echo "$AZURE_DEVOPS_DIRECTORY/" >> .git/info/sparse-checkout
+          echo "/Fullsteam.Payments.QA/Fullsteam.Payments.UITests.Playwright/PartnerTrack" >> .git/info/sparse-checkout
           git checkout jmob/playwrightTest  # Checks out the feature branch
           
       - name: List directory contents
         run: |
-          cd $AZURE_DEVOPS_REPOSITORY
+          cd Washington
           echo "Current directory:"
           pwd  # Print the current directory
           ls -R  # List all contents of the repository to verify
