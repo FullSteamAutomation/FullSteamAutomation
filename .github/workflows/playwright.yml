@@ -17,13 +17,17 @@ jobs:
       FEATURE_BRANCH: 'jmob/playwrightTest'
 
     steps:
-    - name: Checkout GitHub repository
-      uses: actions/checkout@v3
-      with:
-        repository: ${{ env.AZURE_DEVOPS_ORGANIZATION }}/${{ env.AZURE_DEVOPS_PROJECT }}/_git/${{ env.AZURE_DEVOPS_REPOSITORY }}
-        token: ${{ env.AZURE_DEVOPS_PAT }}
-        ref: ${{ env.FEATURE_BRANCH }}  # Checkout the specified feature branch
-        fetch-depth: 0  # Fetch all history for all branches and tags
+      - name: Set up Git and clone Azure DevOps repository
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git clone https://$AZURE_DEVOPS_PAT:x-oauth-basic@dev.azure.com/$AZURE_DEVOPS_ORGANIZATION/$AZURE_DEVOPS_PROJECT/_git/$AZURE_DEVOPS_REPOSITORY
+          cd $AZURE_DEVOPS_REPOSITORY
+          git checkout jmob/playwrightTest  # Checks out the feature branch
+
+      - name: List directory contents
+        run: |
+          ls -R  # List all contents of the repository to verify
 
     # - name: Set up Git for sparse checkout
     #   run: |
