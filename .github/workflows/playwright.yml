@@ -53,6 +53,12 @@ jobs:
         echo "Directory contents:"
         npx playwright test
 
+    - name: Verify directory for reports
+      run: |
+        cd azure-devops-repo/$AZURE_DEVOPS_DIRECTORY/playwright-report
+        pwd  # Print current directory
+        ls   # List directory contents
+
     - name: Upload Playwright HTML report
       uses: actions/upload-artifact@v3
       with:
