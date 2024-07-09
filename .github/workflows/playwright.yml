@@ -50,8 +50,8 @@ jobs:
         run: |
           cd $GITHUB_WORKSPACE/PartnerTrack
           npx playwright test          
-          pwd  # Print the current directory
-          ls -R  # List all contents of the repository to verify
+          cd PartnerTrack/playwright-report
+          ls
 
     # - name: Save html file to repo root
     #   run: |
@@ -68,7 +68,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: playwright-html-report
-          path: $GITHUB_WORKSPACE/PartnerTrack/playwright-report/
+          path: PartnerTrack/playwright-report/
 
     # - name: Upload Playwright trace on failure
     #   if: failure() # Only run this step if the previous step fails
