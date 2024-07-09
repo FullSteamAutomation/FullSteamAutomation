@@ -60,16 +60,21 @@ jobs:
         echo "::set-output name=path::$(pwd)"
         ls   # List directory contents
 
-    - name: Upload Playwright HTML report
-      uses: actions/upload-artifact@v3
+    - name: Download html report artifact
+      uses: actions/download-artifact@v4.1.8
       with:
-        name: playwright-html-report
-        path: ${{ steps.save-path.outputs.path }}/playwright-report/index.html
+        pattern: '**/index.html'
 
-    - name: Upload Playwright trace on failure
-      if: failure() # Only run this step if the previous step fails
-      uses: actions/upload-artifact@v3
-      with:
-        name: playwright-trace
-        path: ${{ steps.save-path.outputs.path }}/playwright-report/trace.zip
+    # - name: Upload Playwright HTML report
+    #   uses: actions/upload-artifact@v3
+    #   with:
+    #     name: playwright-html-report
+    #     path: ${{ steps.save-path.outputs.path }}/playwright-report/index.html
+
+    # - name: Upload Playwright trace on failure
+    #   if: failure() # Only run this step if the previous step fails
+    #   uses: actions/upload-artifact@v3
+    #   with:
+    #     name: playwright-trace
+    #     path: ${{ steps.save-path.outputs.path }}/playwright-report/trace.zip
 
