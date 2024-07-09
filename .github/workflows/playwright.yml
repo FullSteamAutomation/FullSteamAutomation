@@ -13,7 +13,7 @@ jobs:
       AZURE_DEVOPS_PAT: ${{ secrets.AZURE_DEVOPS_PAT }}
       AZURE_DEVOPS_ORGANIZATION: ${{ secrets.AZURE_DEVOPS_ORGANIZATION }}
       AZURE_DEVOPS_PROJECT: ${{ secrets.AZURE_DEVOPS_PROJECT }}
-      AZURE_DEVOPS_REPOSITORY: ${{ secrets.AZURE_DEVOPS_REPOSITORY }}
+      AZURE_DEVOPS_REPOSITORY: 'Washington'
       FEATURE_BRANCH: 'jmob/playwrightTest'
 
     steps:
@@ -21,7 +21,7 @@ jobs:
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git clone --no-checkout https://$AZURE_DEVOPS_PAT:x-oauth-basic@dev.azure.com/$AZURE_DEVOPS_ORGANIZATION/$AZURE_DEVOPS_PROJECT/_git/Washington
+          git clone --no-checkout https://$AZURE_DEVOPS_PAT:x-oauth-basic@dev.azure.com/$AZURE_DEVOPS_ORGANIZATION/$AZURE_DEVOPS_PROJECT/_git/$AZURE_DEVOPS_REPOSITORY
           
           echo "Current directory:"
           pwd  # Print the current directory
