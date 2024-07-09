@@ -29,6 +29,7 @@ jobs:
           
       - name: List directory contents
         run: |
+          cd $AZURE_DEVOPS_REPOSITORY 
           ls -R  # List all contents of the repository to verify
 
     # - name: Set up Git for sparse checkout
