@@ -53,22 +53,18 @@ jobs:
           cd playwright-report
           ls
 
-    # - name: Save html file to repo root
-    #   run: |
-    #     cd azure-devops-repo/$AZURE_DEVOPS_DIRECTORY/playwright-report
-    #     ls       
-    #     cp index.html $GITHUB_WORKSPACE/index.html  # Copy index.html to the root of GitHub workspace
-
-      # - name: Download html report artifact
-      #   uses: actions/download-artifact@v4.1.8
-      #   with:
-      #     pattern: '$GITHUB_WORKSPACE/*.html'
-
       - name: Upload Playwright HTML report
         uses: actions/upload-artifact@v3
         with:
           name: playwright-html-report
           path: PartnerTrack/playwright-report/index.html
+
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@4.1.1  # Example action for deploying to GitHub Pages
+        with:
+          branch: gh-pages  # Branch where GitHub Pages are hosted
+          folder: extracted-artifact  # Folder containing the extracted artifact contents
+
 
     # - name: Upload Playwright trace on failure
     #   if: failure() # Only run this step if the previous step fails
