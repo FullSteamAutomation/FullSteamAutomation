@@ -59,28 +59,35 @@ jobs:
           name: playwright-html-report
           path: PartnerTrack/playwright-report/
 
-      - name: Upload GitHub Pages
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: PartnerTrack/playwright-report/ 
-          name: github-pages  # specify the name of the artifact  
-
-  deploy:
-    needs: test
-    runs-on: ubuntu-latest
-    permissions:
-      pages: write  # This is important for the deployment step
-      id-token: write
-
-    steps:
-      - name: Download artifact
-        uses: actions/download-artifact@v2
-        with:
-          name: 'github-pages'  # Ensure this matches the uploaded artifact name
-          path: './downloaded-artifact'
-        
       - name: Deploy to GitHub Pages
-        uses: actions/deploy-pages@v1
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          artifact_name: github-pages  # The name of the artifact to deploy
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: PartnerTrack/playwright-report/
+
+
+  #     - name: Upload GitHub Pages
+  #       uses: actions/upload-pages-artifact@v3
+  #       with:
+  #         path: PartnerTrack/playwright-report/ 
+  #         name: github-pages  # specify the name of the artifact  
+
+  # deploy:
+  #   needs: test
+  #   runs-on: ubuntu-latest
+  #   permissions:
+  #     pages: write  # This is important for the deployment step
+  #     id-token: write
+
+  #   steps:
+  #     - name: Download artifact
+  #       uses: actions/download-artifact@v2
+  #       with:
+  #         name: 'github-pages'  # Ensure this matches the uploaded artifact name
+  #         path: './downloaded-artifact'
+        
+  #     - name: Deploy to GitHub Pages
+  #       uses: actions/deploy-pages@v1
+  #       with:
+  #         artifact_name: github-pages  # The name of the artifact to deploy
 
