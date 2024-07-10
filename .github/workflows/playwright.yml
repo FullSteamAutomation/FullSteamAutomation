@@ -57,13 +57,13 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: playwright-html-report
-          path: PartnerTrack/playwright-report/index.html
+          path: PartnerTrack/playwright-report/
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@4.1.1  # Example action for deploying to GitHub Pages
         with:
           branch: gh-pages  # Branch where GitHub Pages are hosted
-          folder: extracted-artifact  # Folder containing the extracted artifact contents
+          folder: PartnerTrack/playwright-report  # Folder containing the extracted artifact contents
 
 
     # - name: Upload Playwright trace on failure
