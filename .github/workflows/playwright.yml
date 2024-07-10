@@ -85,13 +85,6 @@ jobs:
       id-token: write
 
     steps:
-    - name: Deploy to GitHub Pages
-      uses: actions/deploy-pages@v1
-
-    # - name: Upload Playwright trace on failure
-    #   if: failure() # Only run this step if the previous step fails
-    #   uses: actions/upload-artifact@v3
-    #   with:
-    #     name: playwright-trace
-    #     path: ${{ steps.save-path.outputs.path }}/playwright-report/trace.zip
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v1
 
