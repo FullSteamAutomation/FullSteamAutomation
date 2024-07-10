@@ -74,4 +74,6 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v1
+        with:
+          artifact_name: github-pages  # The name of the artifact to deploy
 
