@@ -2,8 +2,7 @@ name: Playwright Tests
 on:
   workflow_dispatch:  # Allows manual triggering
   schedule:
-    # Runs every day at 8 PM Eastern Time
-    - cron: '0 0 * * *'  # This cron expression runs at 12 AM UTC (which is 8 PM Eastern Time)
+    - cron: '0 10 * * *'  # This cron expression runs at 10 AM UTC (which is 6 AM Eastern Time during daylight saving time)
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
