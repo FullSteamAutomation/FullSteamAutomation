@@ -63,6 +63,7 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           path: PartnerTrack/playwright-report/ 
+          name: github-pages  # specify the name of the artifact  
 
   deploy:
     needs: test
