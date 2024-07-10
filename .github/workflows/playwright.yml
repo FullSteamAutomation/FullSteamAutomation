@@ -60,11 +60,20 @@ jobs:
           path: PartnerTrack/playwright-report/
 
       - name: Deploy to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@4.1.1  # Example action for deploying to GitHub Pages
-        with:
-          branch: gh-pages  # Branch where GitHub Pages are hosted
-          folder: PartnerTrack/playwright-report  # Folder containing the extracted artifact contents
-
+        run: |
+          # Move to the build directory
+          cd PartnerTrack/playwright-report/  # or the directory where index.html is generated
+          # Initialize a new Git repository
+          git init
+          # Configure Git
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          # Add all files
+          git add .
+          # Commit the changes
+          git commit -m 'Deploy to GitHub Pages'
+          # Force push to the gh-pages branch
+          git push -f https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git master:gh-pages
 
     # - name: Upload Playwright trace on failure
     #   if: failure() # Only run this step if the previous step fails
