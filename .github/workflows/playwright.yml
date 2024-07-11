@@ -11,7 +11,7 @@ permissions:
   id-token: write
 
 jobs:
-  test:
+  test_job:
     runs-on: ubuntu-20.04  # Use Ubuntu 20.04 for Playwright support
 
     env:
@@ -65,8 +65,8 @@ jobs:
           name: playwright-html-report
           path: PartnerTrack/playwright-report/
 
-  deploy:
-    needs: test
+  deploy_job:
+    needs: test_job
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
