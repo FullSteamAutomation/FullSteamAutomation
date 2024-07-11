@@ -66,25 +66,22 @@ jobs:
           path: PartnerTrack/playwright-report/
 
   deploy:
+    needs: test
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    needs: test
     runs-on: ubuntu-latest
     steps:
       - name: Download artifact
-        if: always()
         uses: actions/download-artifact@v3
         with:
           name: playwright-html-report  # replace with the name of your artifact
           path: '.'  # specify the path where you want to download the artifact
   
       - name: Setup Pages
-        if: always()
         uses: actions/configure-pages@v5
   
       - name: Upload artifact
-        if: always()
         uses: actions/upload-pages-artifact@v3
         with:
           # Upload entire repository
